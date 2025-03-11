@@ -1,8 +1,8 @@
 package xyz.breadloaf.imguimc.debug;
 
 import imgui.ImGui;
-import xyz.breadloaf.imguimc.interfaces.Renderable;
-import xyz.breadloaf.imguimc.interfaces.Theme;
+import xyz.breadloaf.imguimc.Renderable;
+import xyz.breadloaf.imguimc.theme.Theme;
 import xyz.breadloaf.imguimc.theme.ImGuiDarkTheme;
 
 public class DebugRenderable implements Renderable {

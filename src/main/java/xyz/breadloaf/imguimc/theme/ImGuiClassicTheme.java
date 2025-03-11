@@ -1,7 +1,6 @@
 package xyz.breadloaf.imguimc.theme;
 
 import imgui.ImGui;
-import xyz.breadloaf.imguimc.interfaces.Theme;
 
 public class ImGuiClassicTheme implements Theme {
     @Override

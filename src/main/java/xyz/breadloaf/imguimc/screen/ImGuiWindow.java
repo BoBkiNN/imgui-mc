@@ -3,9 +3,9 @@ package xyz.breadloaf.imguimc.screen;
 import imgui.ImGui;
 import imgui.type.ImBoolean;
 import net.minecraft.network.chat.Component;
-import xyz.breadloaf.imguimc.Imguimc;
-import xyz.breadloaf.imguimc.interfaces.Renderable;
-import xyz.breadloaf.imguimc.interfaces.Theme;
+import xyz.breadloaf.imguimc.ImGuiMc;
+import xyz.breadloaf.imguimc.Renderable;
+import xyz.breadloaf.imguimc.theme.Theme;
 
 public class ImGuiWindow implements Renderable {
     Theme theme;
@@ -39,7 +39,7 @@ public class ImGuiWindow implements Renderable {
     @Override
     public void render() {
         if (!open.get()) {
-            Imguimc.pullRenderableAfterRender(this);
+            ImGuiMc.pullRenderableAfterRender(this);
             return;
         }
 

@@ -17,6 +17,7 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven("https://maven.fabricmc.net/")
+    maven("https://maven.terraformersmc.com/")
 }
 
 dependencies {
@@ -39,6 +40,8 @@ dependencies {
     shadow("io.github.spair:imgui-java-natives-linux:$imguiVersion")
     implementation("io.github.spair:imgui-java-natives-macos:$imguiVersion")
     shadow("io.github.spair:imgui-java-natives-macos:$imguiVersion")
+
+    modRuntimeOnly("com.terraformersmc:modmenu:11.0.3") // ModMenu for runtime
 }
 
 tasks.processResources {

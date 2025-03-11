@@ -13,7 +13,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "xyz.breadloaf.imguimc.Imguimc"
+      "xyz.breadloaf.imguimc.ImGuiMc"
     ]
   },
   "mixins": [
@@ -23,5 +23,11 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}"
+  },
+  "custom": {
+    "modmenu": {
+      "badges": [ "library"],
+      "update_checker": false
+    }
   }
 }

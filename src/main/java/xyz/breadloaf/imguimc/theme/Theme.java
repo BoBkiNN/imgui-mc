@@ -1,4 +1,4 @@
-package xyz.breadloaf.imguimc.interfaces;
+package xyz.breadloaf.imguimc.theme;
 
 public interface Theme {
     void preRender();

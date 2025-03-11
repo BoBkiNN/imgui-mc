@@ -1,4 +1,6 @@
-package xyz.breadloaf.imguimc.interfaces;
+package xyz.breadloaf.imguimc;
+
+import xyz.breadloaf.imguimc.theme.Theme;
 
 public interface Renderable {
     String getName();

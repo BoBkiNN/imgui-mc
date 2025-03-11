@@ -6,9 +6,9 @@ import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import imgui.internal.ImGuiDockNode;
-import xyz.breadloaf.imguimc.Imguimc;
+import xyz.breadloaf.imguimc.ImGuiMc;
 import xyz.breadloaf.imguimc.WindowScaling;
-import xyz.breadloaf.imguimc.interfaces.Renderable;
+import xyz.breadloaf.imguimc.Renderable;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -34,18 +34,18 @@ public class ImguiLoader {
 
         //user render code
 
-        for (Renderable renderable: Imguimc.renderstack) {
-            Imguimc.MINECRAFT.getProfiler().push("ImGui Render/"+renderable.getName());
+        for (Renderable renderable: ImGuiMc.renderStack) {
+            ImGuiMc.MINECRAFT.getProfiler().push("ImGui Render/"+renderable.getName());
             renderable.getTheme().preRender();
             renderable.render();
             renderable.getTheme().postRender();
-            Imguimc.MINECRAFT.getProfiler().pop();
+            ImGuiMc.MINECRAFT.getProfiler().pop();
         }
 
-        for (Renderable renderable : Imguimc.toRemove) {
-            Imguimc.pullRenderable(renderable);
+        for (Renderable renderable : ImGuiMc.toRemove) {
+            ImGuiMc.pullRenderable(renderable);
         }
-        Imguimc.toRemove.clear();
+        ImGuiMc.toRemove.clear();
 
         //end of user code
 
@@ -58,7 +58,7 @@ public class ImguiLoader {
     private static void setupDocking() {
         int windowFlags = ImGuiWindowFlags.NoDocking;
 
-        Window window = Imguimc.MINECRAFT.getWindow();
+        Window window = ImGuiMc.MINECRAFT.getWindow();
 
         ImGui.setNextWindowPos(window.getX(), window.getY(), ImGuiCond.Always);
         ImGui.setNextWindowSize(window.getWidth(), window.getHeight());
@@ -71,7 +71,7 @@ public class ImguiLoader {
         ImGui.begin("imgui-mc docking host window", windowFlags);
         ImGui.popStyleVar(2);
 
-        int id = ImGui.dockSpace(Imguimc.getDockId(), 0, 0, ImGuiDockNodeFlags.PassthruCentralNode |
+        int id = ImGui.dockSpace(ImGuiMc.getDockId(), 0, 0, ImGuiDockNodeFlags.PassthruCentralNode |
                 ImGuiDockNodeFlags.NoCentralNode | ImGuiDockNodeFlags.NoDockingInCentralNode);
 
         ImGuiDockNode centre = imgui.internal.ImGui.dockBuilderGetCentralNode(id);

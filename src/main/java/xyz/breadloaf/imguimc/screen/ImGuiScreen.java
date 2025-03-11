@@ -4,7 +4,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
-import xyz.breadloaf.imguimc.Imguimc;
+import xyz.breadloaf.imguimc.ImGuiMc;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class ImGuiScreen extends Screen {
         if (!alreadyInitialised) {
             windows = initImGui();
             for (ImGuiWindow window : windows) {
-                Imguimc.pushRenderable(window);
+                ImGuiMc.pushRenderable(window);
             }
             alreadyInitialised = true;
         }
@@ -41,7 +41,7 @@ public class ImGuiScreen extends Screen {
     @Override
     public void onClose() {
         for (ImGuiWindow window : windows) {
-            Imguimc.pullRenderable(window);
+            ImGuiMc.pullRenderable(window);
         }
         super.onClose();
     }
@@ -65,11 +65,11 @@ public class ImGuiScreen extends Screen {
 
     protected void pushWindow(ImGuiWindow window) {
         windows.add(window);
-        Imguimc.pushRenderable(window);
+        ImGuiMc.pushRenderable(window);
     }
 
     protected void pullWindow(ImGuiWindow window) {
         windows.remove(window);
-        Imguimc.pullRenderableAfterRender(window);
+        ImGuiMc.pullRenderableAfterRender(window);
     }
 }

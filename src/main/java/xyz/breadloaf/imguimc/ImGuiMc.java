@@ -9,16 +9,16 @@ import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import xyz.breadloaf.imguimc.debug.DebugRenderable;
-import xyz.breadloaf.imguimc.interfaces.Renderable;
+
 import java.util.ArrayList;
 
 
 @Environment(EnvType.CLIENT)
-public class Imguimc implements ClientModInitializer {
-    public static final String MODID = "imgui-mc";
-    public static final Logger LOGGER = LogManager.getLogger(MODID);
+public class ImGuiMc implements ClientModInitializer {
+    public static final String MOD_ID = "imgui-mc";
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     public static final Minecraft MINECRAFT = Minecraft.getInstance();
-    public static ArrayList<Renderable> renderstack = new ArrayList<>();
+    public static ArrayList<Renderable> renderStack = new ArrayList<>();
 
     public static ArrayList<Renderable> toRemove = new ArrayList<>();
 
@@ -31,12 +31,12 @@ public class Imguimc implements ClientModInitializer {
     }
 
     public static Renderable pushRenderable(Renderable renderable) {
-        renderstack.add(renderable);
+        renderStack.add(renderable);
         return renderable;
     }
 
     public static Renderable pullRenderable(Renderable renderable) {
-        renderstack.remove(renderable);
+        renderStack.remove(renderable);
         return renderable;
     }
 
