@@ -79,14 +79,9 @@ tasks.remapJar {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            artifact(tasks.remapJar.get().archiveFile) {
-                builtBy(tasks.remapJar)
-            }
-            artifact(tasks.named("sourcesJar").get()) {
-                builtBy(tasks.named("sourcesJar"))
-            }
+            from(components["java"])
             artifact(tasks.jar.get().archiveFile) {
-                classifier = "api"
+                classifier = "dev"
             }
         }
     }
