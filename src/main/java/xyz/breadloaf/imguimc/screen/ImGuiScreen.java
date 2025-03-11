@@ -3,6 +3,7 @@ package xyz.breadloaf.imguimc.screen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.NotNull;
 import xyz.breadloaf.imguimc.Imguimc;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class ImGuiScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int i, int j, float f) {
+    public void render(@NotNull GuiGraphics guiGraphics, int i, int j, float f) {
         super.render(guiGraphics, i, j, f);
 
         if (closeWhenNoWindows) {
@@ -54,6 +55,7 @@ public class ImGuiScreen extends Screen {
             for (ImGuiWindow window : windows) {
                 if (window.open.get()) {
                     foundOpen = true;
+                    break;
                 }
             }
             if (!foundOpen)
