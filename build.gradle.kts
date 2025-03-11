@@ -79,7 +79,7 @@ tasks.remapJar {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            from(components["java"])
+            from(components["java"]) // to add .pom dependencies
             artifact(tasks.jar.get().archiveFile) {
                 classifier = "dev"
             }
