@@ -7,7 +7,7 @@ ImGui for minecraft based on imgui-java
 
 - Stop mouse input to imgui while in game
 - Wiki
-- Add more stuff to this todo list
+- Prevent mouse input to game if imgui window is above
 
 ## Maven repo
 
