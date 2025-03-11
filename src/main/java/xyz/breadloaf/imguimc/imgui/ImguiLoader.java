@@ -1,11 +1,13 @@
 package xyz.breadloaf.imguimc.imgui;
 
+import com.mojang.blaze3d.platform.Window;
 import imgui.*;
-import imgui.flag.ImGuiCol;
-import imgui.flag.ImGuiConfigFlags;
+import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
+import imgui.internal.ImGuiDockNode;
 import xyz.breadloaf.imguimc.Imguimc;
+import xyz.breadloaf.imguimc.WindowScaling;
 import xyz.breadloaf.imguimc.interfaces.Renderable;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -28,6 +30,8 @@ public class ImguiLoader {
         imGuiGlfw.newFrame();
         ImGui.newFrame();
 
+        setupDocking();
+
         //user render code
 
         for (Renderable renderable: Imguimc.renderstack) {
@@ -45,8 +49,42 @@ public class ImguiLoader {
 
         //end of user code
 
+        finishDocking();
+
         ImGui.render();
         endFrame(windowHandle);
+    }
+
+    private static void setupDocking() {
+        int windowFlags = ImGuiWindowFlags.NoDocking;
+
+        Window window = Imguimc.MINECRAFT.getWindow();
+
+        ImGui.setNextWindowPos(window.getX(), window.getY(), ImGuiCond.Always);
+        ImGui.setNextWindowSize(window.getWidth(), window.getHeight());
+        windowFlags |= ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoMove |
+                ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus | ImGuiWindowFlags.NoBackground |
+                ImGuiWindowFlags.NoNavInputs;
+
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowPadding, 0, 0);
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+        ImGui.begin("imgui-mc docking host window", windowFlags);
+        ImGui.popStyleVar(2);
+
+        int id = ImGui.dockSpace(Imguimc.getDockId(), 0, 0, ImGuiDockNodeFlags.PassthruCentralNode |
+                ImGuiDockNodeFlags.NoCentralNode | ImGuiDockNodeFlags.NoDockingInCentralNode);
+
+        ImGuiDockNode centre = imgui.internal.ImGui.dockBuilderGetCentralNode(id);
+        WindowScaling.X_OFFSET = (int) centre.getPosX() - window.getX();
+        WindowScaling.Y_OFFSET = (int) centre.getPosY() - window.getY();
+        WindowScaling.Y_TOP_OFFSET = (int) (window.getHeight() - ((centre.getPosY() - window.getY()) + centre.getSizeY()));
+        WindowScaling.WIDTH = (int) centre.getSizeX();
+        WindowScaling.HEIGHT = (int) centre.getSizeY();
+        WindowScaling.update();
+    }
+
+    private static void finishDocking() {
+        ImGui.end();
     }
 
     private static void initializeImGui(long glHandle) {

@@ -1,6 +1,5 @@
 package xyz.breadloaf.imguimc.mixin;
 
-import imgui.ImGui;
 import net.minecraft.client.KeyboardHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
