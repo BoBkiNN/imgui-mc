@@ -12,7 +12,7 @@ import xyz.breadloaf.imguimc.Renderable;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class ImguiLoader {
+public class ImGuiLoader {
     private static final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
 
     private static final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
@@ -21,7 +21,7 @@ public class ImguiLoader {
 
     public static void onGlfwInit(long handle) {
         initializeImGui(handle);
-        imGuiGlfw.init(handle,true);
+        imGuiGlfw.init(handle, true);
         imGuiGl3.init();
         windowHandle = handle;
     }
@@ -34,8 +34,8 @@ public class ImguiLoader {
 
         //user render code
 
-        for (Renderable renderable: ImGuiMc.renderStack) {
-            ImGuiMc.MINECRAFT.getProfiler().push("ImGui Render/"+renderable.getName());
+        for (Renderable renderable : ImGuiMc.renderStack) {
+            ImGuiMc.MINECRAFT.getProfiler().push("ImGui Render/" + renderable.getName());
             renderable.getTheme().preRender();
             renderable.render();
             renderable.getTheme().postRender();

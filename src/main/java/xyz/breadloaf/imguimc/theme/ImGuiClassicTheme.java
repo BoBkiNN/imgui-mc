@@ -8,8 +8,4 @@ public class ImGuiClassicTheme implements Theme {
         ImGui.styleColorsClassic();
     }
 
-    @Override
-    public void postRender() {
-
-    }
 }

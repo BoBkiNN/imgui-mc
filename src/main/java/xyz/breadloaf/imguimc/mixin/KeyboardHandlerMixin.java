@@ -6,14 +6,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.breadloaf.imguimc.ImGuiMc;
-import xyz.breadloaf.imguimc.imgui.ImguiLoader;
+import xyz.breadloaf.imguimc.imgui.ImGuiLoader;
 
 @Mixin(KeyboardHandler.class)
 public class KeyboardHandlerMixin {
 
     @Inject(method = "setup", at = @At("TAIL"))
     public void setup(long l, CallbackInfo ci) {
-        ImguiLoader.onGlfwInit(l);
+        ImGuiLoader.onGlfwInit(l);
     }
 
     @Inject(method = "keyPress", at = @At("HEAD"), cancellable = true)

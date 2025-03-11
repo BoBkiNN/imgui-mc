@@ -21,11 +21,11 @@ public class MouseHandlerMixin {
 
     @WrapOperation(method = {"grabMouse", "releaseMouse"}, at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getScreenWidth()I"))
     public int calculateDoubledCentreX(Window instance, Operation<Integer> original) {
-        return (WindowScaling.X_OFFSET + (WindowScaling.WIDTH/2)) * 2;
+        return (WindowScaling.X_OFFSET + (WindowScaling.WIDTH / 2)) * 2;
     }
 
     @WrapOperation(method = {"grabMouse", "releaseMouse"}, at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getScreenHeight()I"))
     public int calculateDoubledCentreY(Window instance, Operation<Integer> original) {
-        return (WindowScaling.Y_OFFSET + (WindowScaling.HEIGHT/2)) * 2;
+        return (WindowScaling.Y_OFFSET + (WindowScaling.HEIGHT / 2)) * 2;
     }
 }

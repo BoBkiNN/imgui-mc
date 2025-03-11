@@ -1,34 +1,23 @@
 package xyz.breadloaf.imguimc;
 
 import imgui.ImGui;
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import xyz.breadloaf.imguimc.debug.DebugRenderable;
 
 import java.util.ArrayList;
 
 
 @Environment(EnvType.CLIENT)
-public class ImGuiMc implements ClientModInitializer {
+public class ImGuiMc {
     public static final String MOD_ID = "imgui-mc";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     public static final Minecraft MINECRAFT = Minecraft.getInstance();
     public static ArrayList<Renderable> renderStack = new ArrayList<>();
 
     public static ArrayList<Renderable> toRemove = new ArrayList<>();
-
-    @Override
-    public void onInitializeClient() {
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-            LOGGER.info("In development environment, pushing debug renderable.");
-            pushRenderable(new DebugRenderable());
-        }
-    }
 
     public static Renderable pushRenderable(Renderable renderable) {
         renderStack.add(renderable);

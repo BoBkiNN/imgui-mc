@@ -8,8 +8,4 @@ public class ImGuiDarkTheme implements Theme {
         ImGui.styleColorsDark();
     }
 
-    @Override
-    public void postRender() {
-
-    }
 }
