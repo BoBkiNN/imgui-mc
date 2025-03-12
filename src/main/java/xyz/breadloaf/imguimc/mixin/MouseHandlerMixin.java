@@ -40,7 +40,17 @@ public class MouseHandlerMixin {
             if (!(r instanceof ImGuiMcWindow w)) continue;
             if (w.isCursorIn()) {
                 ci.cancel();
-//                ImGuiMc.LOGGER.info("Cancelled click");
+                break;
+            }
+        }
+    }
+
+    @Inject(method = "onMove", at = @At("HEAD"), cancellable = true)
+    public void onMove(long l, double xPos, double yPos, CallbackInfo ci) {
+        for (var r : ImGuiMc.renderStack) {
+            if (!(r instanceof ImGuiMcWindow w)) continue;
+            if (w.isCursorIn()) {
+                ci.cancel();
                 break;
             }
         }
