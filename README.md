@@ -7,7 +7,6 @@ ImGui for minecraft based on imgui-java
 
 - Stop mouse input to imgui while in game
 - Wiki
-- Prevent mouse input to game if imgui window is above
 - Ability to prevent window from moving/scaling outside screen and outside minecraft window.
 - Fix wrong renderer of minecraft when window is docked
 
