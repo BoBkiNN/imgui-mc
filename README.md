@@ -8,6 +8,8 @@ ImGui for minecraft based on imgui-java
 - Stop mouse input to imgui while in game
 - Wiki
 - Prevent mouse input to game if imgui window is above
+- Ability to prevent window from moving/scaling outside screen and outside minecraft window.
+- Fix wrong renderer of minecraft when window is docked
 
 ## Maven repo
 
@@ -44,15 +46,15 @@ modImplementation "xyz.breadloaf.imguimc:imgui-mc:${project.imguimc_version}"
 
 ## Current versions
 
-| MC version | imguimc version | imgui-java version                                                  |
-|------------|-----------------| ------------------------------------------------------------------- |
+| MC version | imguimc version | imgui-java version                                                     |
+|------------|-----------------|------------------------------------------------------------------------|
 | 1.17.1     | 1.17.1-1.0.3    | [1.84.1.1](https://github.com/SpaiR/imgui-java/releases/tag/v1.84.1.1) |
 | 1.20.4     | 1.20.4-1.0.4    | [1.84.1.1](https://github.com/SpaiR/imgui-java/releases/tag/v1.84.1.1) |
 | 1.20.4     | 1.20.4-1.0.5    | [1.84.1.1](https://github.com/SpaiR/imgui-java/releases/tag/v1.84.1.1) |
 | 1.20.4     | 1.20.4-1.0.6    | [1.84.1.1](https://github.com/SpaiR/imgui-java/releases/tag/v1.84.1.1) |
-| 1.20.4     | 1.20.4-1.0.7    | [1.86.12](https://github.com/SpaiR/imgui-java/releases/tag/1.86.12) |
-| 1.21.1     | 1.21.1-1.0.7    | [1.86.12](https://github.com/SpaiR/imgui-java/releases/tag/1.86.12) |
-| 1.21.1     | 1.21.1-1.0.8    | [1.86.12](https://github.com/SpaiR/imgui-java/releases/tag/1.86.12) |
+| 1.20.4     | 1.20.4-1.0.7    | [1.86.12](https://github.com/SpaiR/imgui-java/releases/tag/1.86.12)    |
+| 1.21.1     | 1.21.1-1.0.7    | [1.86.12](https://github.com/SpaiR/imgui-java/releases/tag/1.86.12)    |
+| 1.21.1     | 1.21.1-1.0.8    | [1.86.12](https://github.com/SpaiR/imgui-java/releases/tag/1.86.12)    |
 
 ## Features
 
