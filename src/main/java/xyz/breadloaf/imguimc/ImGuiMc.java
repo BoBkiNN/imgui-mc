@@ -44,4 +44,16 @@ public class ImGuiMc {
     public static int getDockId() {
         return ImGui.getID("imgui-mc dockspace");
     }
+
+    public static boolean isMouseInImGuiWindow() {
+        float mouseX = ImGui.getMousePosX();
+        float mouseY = ImGui.getMousePosY();
+
+        float winX = ImGui.getWindowPosX();
+        float winY = ImGui.getWindowPosY();
+        float winW = ImGui.getWindowWidth();
+        float winH = ImGui.getWindowHeight();
+        return (mouseX >= winX && mouseX <= (winX + winW)) &&
+                (mouseY >= winY && mouseY <= (winY + winH));
+    }
 }

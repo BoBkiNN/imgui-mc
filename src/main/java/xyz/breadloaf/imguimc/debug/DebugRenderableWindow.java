@@ -1,29 +1,23 @@
 package xyz.breadloaf.imguimc.debug;
 
 import imgui.ImGui;
+import xyz.breadloaf.imguimc.ImGuiMcWindow;
 import xyz.breadloaf.imguimc.Renderable;
 import xyz.breadloaf.imguimc.theme.Theme;
 
-public class DebugRenderable implements Renderable {
+public class DebugRenderableWindow extends ImGuiMcWindow {
 
     public static boolean showAboutWindow = false;
     public static boolean showDemoWindow = false;
     public static boolean showMetricsWindow = false;
     public static boolean showUserGuide = false;
 
-    @Override
-    public String getName() {
-        return "Debug Renderable";
+    public DebugRenderableWindow() {
+        super("imgui-mc debug window");
     }
 
     @Override
-    public Theme getTheme() {
-        return Theme.DARK;
-    }
-
-    @Override
-    public void render() {
-        ImGui.begin("imgui-mc debug");
+    public void renderContent() {
         ImGui.text("This window is being shown because you are in a fabric mod\ndevelopment environment. It will not be shown in-game.\nYou can enable some builtin imgui windows below.");
         if (ImGui.checkbox("Show about window", showAboutWindow))
             showAboutWindow = !showAboutWindow;
@@ -34,19 +28,22 @@ public class DebugRenderable implements Renderable {
         if (ImGui.checkbox("Show user guide", showUserGuide))
             showUserGuide = !showUserGuide;
 
-        float mouseX = ImGui.getMousePosX();
-        float mouseY = ImGui.getMousePosY();
+//        float mouseX = ImGui.getMousePosX();
+//        float mouseY = ImGui.getMousePosY();
+//
+//        float winX = ImGui.getWindowPosX();
+//        float winY = ImGui.getWindowPosY();
+//        float winW = ImGui.getWindowWidth();
+//        float winH = ImGui.getWindowHeight();
+//        boolean isInside = (mouseX >= winX && mouseX <= (winX + winW)) &&
+//                (mouseY >= winY && mouseY <= (winY + winH));
+        ImGui.text("Mouse inside: "+isCursorIn());
+        ImGui.text(this.toString());
+        ImGui.text("Mouse pos: "+getMouseX()+" "+getMouseY());
+    }
 
-        float winX = ImGui.getWindowPosX();
-        float winY = ImGui.getWindowPosY();
-        float winW = ImGui.getWindowWidth();
-        float winH = ImGui.getWindowHeight();
-        boolean isInside = (mouseX >= winX && mouseX <= (winX + winW)) &&
-                (mouseY >= winY && mouseY <= (winY + winH));
-        ImGui.text("Mouse inside: "+isInside);
-        ImGui.text("mx my: "+mouseX+", "+mouseY);
-        ImGui.end();
-
+    @Override
+    public void postRender() {
         if (showAboutWindow)
             ImGui.showAboutWindow();
         if (showDemoWindow)

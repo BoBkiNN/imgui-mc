@@ -2,7 +2,7 @@ package xyz.breadloaf.imguimc;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import xyz.breadloaf.imguimc.debug.DebugRenderable;
+import xyz.breadloaf.imguimc.debug.DebugRenderableWindow;
 
 @SuppressWarnings("unused")
 public class ImGuiMcMod implements ClientModInitializer {
@@ -11,7 +11,7 @@ public class ImGuiMcMod implements ClientModInitializer {
     public void onInitializeClient() {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             ImGuiMc.LOGGER.info("In development environment, pushing debug renderable.");
-            ImGuiMc.pushRenderable(new DebugRenderable());
+            ImGuiMc.pushRenderable(new DebugRenderableWindow());
         }
     }
 
