@@ -2,8 +2,6 @@ package xyz.breadloaf.imguimc;
 
 import imgui.ImGui;
 import imgui.ImVec2;
-import imgui.flag.ImGuiCond;
-import imgui.internal.ImGuiWindow;
 import xyz.breadloaf.imguimc.theme.Theme;
 
 public abstract class ImGuiMcWindow implements Renderable {
@@ -16,6 +14,10 @@ public abstract class ImGuiMcWindow implements Renderable {
     private boolean isCursorIn = false;
 
     private boolean inRender = false;
+
+    public ImGuiMcWindow(String name) {
+        this.name = name;
+    }
 
     public float getMouseX() {
         return mouseX;
@@ -45,10 +47,6 @@ public abstract class ImGuiMcWindow implements Renderable {
         return isCursorIn;
     }
 
-    public ImGuiMcWindow(String name) {
-        this.name = name;
-    }
-
     @Override
     public String getName() {
         return name;
@@ -68,7 +66,8 @@ public abstract class ImGuiMcWindow implements Renderable {
     /**
      * Called after end()
      */
-    public void postRender() {}
+    public void postRender() {
+    }
 
     public void updateWindowData() {
         checkIsRender();
@@ -81,47 +80,6 @@ public abstract class ImGuiMcWindow implements Renderable {
     public void checkIsRender() {
         if (!inRender) throw new IllegalStateException("Cannot perform this operation outside render method");
     }
-
-    private void clampCurrentWindowToBoundary(WindowBoundaryProvider boundary) {
-        if (boundary == null) return; // No boundary, do nothing
-
-        float minX = boundary.getX();
-        float minY = boundary.getY();
-        float maxX = minX + boundary.getWidth();
-        float maxY = minY + boundary.getHeight();
-
-        ImVec2 pos = ImGui.getWindowPos();
-        ImVec2 size = ImGui.getWindowSize();
-
-        boolean needsClamp = false;
-        float targetX = pos.x;
-        float targetY = pos.y;
-
-        // Clamping X position
-        if (pos.x < minX) {
-            needsClamp = true;
-            targetX = minX;
-        } else if (pos.x + size.x > maxX) {
-            needsClamp = true;
-            targetX = maxX - size.x;
-        }
-
-        // Clamping Y position
-        if (pos.y < minY) {
-            needsClamp = true;
-            targetY = minY;
-        } else if (pos.y + size.y > maxY) {
-            needsClamp = true;
-            targetY = maxY - size.y;
-        }
-
-        // Apply position constraints
-        if (needsClamp) {
-            ImGui.setNextWindowPos(targetX, targetY, ImGuiCond.Always);
-        }
-    }
-
-
 
 
     private void setupBoundary(WindowBoundaryProvider provider) {
@@ -158,8 +116,7 @@ public abstract class ImGuiMcWindow implements Renderable {
         updateWindowData();
         mouseX = ImGui.getMousePosX();
         mouseY = ImGui.getMousePosY();
-        isCursorIn = (mouseX >= winX && mouseX <= (winX + width)) &&
-                (mouseY >= winY && mouseY <= (winY + height));
+        isCursorIn = (mouseX >= winX && mouseX <= (winX + width)) && (mouseY >= winY && mouseY <= (winY + height));
         renderContent();
         inRender = false;
         ImGui.end();
@@ -168,6 +125,6 @@ public abstract class ImGuiMcWindow implements Renderable {
 
     @Override
     public String toString() {
-        return "ImGuiMcWindow("+name+";"+winX+","+winY+";"+width+","+height+")";
+        return "ImGuiMcWindow(" + name + ";" + winX + "," + winY + ";" + width + "," + height + ")";
     }
 }
