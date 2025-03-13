@@ -108,13 +108,11 @@ public abstract class ImGuiMcWindow implements Renderable {
     @Override
     public void render() {
         var boundary = getBoundary();
-//        clampCurrentWindowToBoundary(boundary);
         if (boundary != null && boundary.onlyMainViewport()) {
             ImGui.setNextWindowViewport(ImGui.getMainViewport().getID());
         }
         ImGui.begin(name);
         inRender = true;
-
         if (boundary != null) setupBoundary(boundary);
         updateWindowData();
         mouseX = ImGui.getMousePosX();
