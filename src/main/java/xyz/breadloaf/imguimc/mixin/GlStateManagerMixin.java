@@ -11,9 +11,9 @@ import xyz.breadloaf.imguimc.WindowScaling;
 public class GlStateManagerMixin {
 
     @WrapMethod(method = "_viewport")
-    private static void viewport(int i, int j, int k, int l, Operation<Void> original) {
+    private static void viewport(int x, int y, int w, int h, Operation<Void> original) {
         if (!WindowScaling.isChanged()) {
-            original.call(i, j, k, l);
+            original.call(x, y, w, h);
             return;
         }
         original.call(WindowScaling.X_OFFSET, WindowScaling.Y_TOP_OFFSET, WindowScaling.WIDTH, WindowScaling.HEIGHT);
