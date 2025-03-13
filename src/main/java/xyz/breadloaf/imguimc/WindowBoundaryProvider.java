@@ -12,6 +12,10 @@ public interface WindowBoundaryProvider {
     int getX();
     int getY();
 
+    default boolean onlyMainViewport() {
+        return false;
+    }
+
     default String asString() {
         return "WindowBoundary("+getX()+","+getY()+";"+getWidth()+","+getHeight()+")";
     }
@@ -78,6 +82,11 @@ public interface WindowBoundaryProvider {
         @Override
         public int getY() {
             return window.getY();
+        }
+
+        @Override
+        public boolean onlyMainViewport() {
+            return true;
         }
     };
 }
