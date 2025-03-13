@@ -1,6 +1,9 @@
 package xyz.breadloaf.imguimc;
 
 import imgui.ImGui;
+import imgui.ImVec2;
+import imgui.flag.ImGuiCond;
+import imgui.internal.ImGuiWindow;
 import xyz.breadloaf.imguimc.theme.Theme;
 
 public abstract class ImGuiMcWindow implements Renderable {
@@ -56,6 +59,10 @@ public abstract class ImGuiMcWindow implements Renderable {
         return Theme.DARK;
     }
 
+    public WindowBoundaryProvider getBoundary() {
+        return null;
+    }
+
     public abstract void renderContent();
 
     /**
@@ -75,10 +82,79 @@ public abstract class ImGuiMcWindow implements Renderable {
         if (!inRender) throw new IllegalStateException("Cannot perform this operation outside render method");
     }
 
+    private void clampCurrentWindowToBoundary(WindowBoundaryProvider boundary) {
+        if (boundary == null) return; // No boundary, do nothing
+
+        float minX = boundary.getX();
+        float minY = boundary.getY();
+        float maxX = minX + boundary.getWidth();
+        float maxY = minY + boundary.getHeight();
+
+        ImVec2 pos = ImGui.getWindowPos();
+        ImVec2 size = ImGui.getWindowSize();
+
+        boolean needsClamp = false;
+        float targetX = pos.x;
+        float targetY = pos.y;
+
+        // Clamping X position
+        if (pos.x < minX) {
+            needsClamp = true;
+            targetX = minX;
+        } else if (pos.x + size.x > maxX) {
+            needsClamp = true;
+            targetX = maxX - size.x;
+        }
+
+        // Clamping Y position
+        if (pos.y < minY) {
+            needsClamp = true;
+            targetY = minY;
+        } else if (pos.y + size.y > maxY) {
+            needsClamp = true;
+            targetY = maxY - size.y;
+        }
+
+        // Apply position constraints
+        if (needsClamp) {
+            ImGui.setNextWindowPos(targetX, targetY, ImGuiCond.Always);
+        }
+    }
+
+
+
+
+    private void setupBoundary(WindowBoundaryProvider provider) {
+        float minX = provider.getX();
+        float minY = provider.getY();
+        float maxX = minX + provider.getWidth();
+        float maxY = minY + provider.getHeight();
+
+        // Get the current position and size
+        ImVec2 pos = ImGui.getWindowPos();
+        ImVec2 size = ImGui.getWindowSize();
+
+        // Clamp position so the window stays inside
+        float clampedX = Math.max(minX, Math.min(pos.x, maxX - size.x));
+        float clampedY = Math.max(minY, Math.min(pos.y, maxY - size.y));
+
+        // Directly override position to ensure it never escapes
+        ImGui.setWindowPos(clampedX, clampedY);
+
+        // Enforce size constraints
+        float maxWidth = maxX - minX;
+        float maxHeight = maxY - minY;
+        ImGui.setWindowSize(Math.min(size.x, maxWidth), Math.min(size.y, maxHeight));
+    }
+
     @Override
     public void render() {
+        var boundary = getBoundary();
+//        clampCurrentWindowToBoundary(boundary);
         ImGui.begin(name);
         inRender = true;
+
+        if (boundary != null) setupBoundary(boundary);
         updateWindowData();
         mouseX = ImGui.getMousePosX();
         mouseY = ImGui.getMousePosY();
