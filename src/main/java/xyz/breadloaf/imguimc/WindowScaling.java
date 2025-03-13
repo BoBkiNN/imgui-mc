@@ -60,13 +60,14 @@ public class WindowScaling {
     public static Vector2d scaleWidthHeight(double width, double height) {
         Window window = getGameWindow();
 
-        float x_scale = (float) WIDTH / window.getScreenWidth();
-        float y_scale = (float) HEIGHT / window.getScreenHeight();
+        float x_scale = (float) WIDTH / window.getWidth();
+        float y_scale = (float) HEIGHT / window.getHeight();
 
-        width *= x_scale;
-        height *= y_scale;
+        var nw = width * x_scale;
+        var nh = height * y_scale;
 
-        return new Vector2d(width, height);
+//        ImGuiMc.LOGGER.info("Scaled wh {}, {} -> {}, {}", width, height, nw, nh);
+        return new Vector2d(nw, nh);
     }
 
     public static Vector2d unscaleWidthHeight(double width, double height) {
