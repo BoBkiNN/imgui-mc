@@ -7,8 +7,9 @@ ImGui for minecraft based on imgui-java
 
 - Stop mouse input to imgui while in game
 - Wiki
-- Ability to prevent window from moving/scaling outside screen and outside minecraft window.
 - Fix wrong renderer of minecraft when window is docked
+- Fix that window boundaries do not display correctly when tried to move out of bounds
+- Button to export imgui window to separate LWJGL window and back
 
 ## Maven repo
 
