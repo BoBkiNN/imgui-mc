@@ -40,8 +40,4 @@ public class ImGuiMc {
     public static boolean shouldCancelGameKeyboardInputs() {
         return ImGui.isAnyItemActive() || ImGui.isAnyItemFocused();
     }
-
-    public static int getDockId() {
-        return ImGui.getID("imgui-mc dockspace");
-    }
 }
